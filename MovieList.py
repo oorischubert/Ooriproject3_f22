@@ -46,6 +46,6 @@ class MovieList:
     def save(self,database) -> None:
         file = open(database, "w")
         for i in range(self.__size):
-            file.write(str(self.__movies[i].getID()) + ";" + str(self.__movies[i].getYear()) + ";" + self.__movies[i].getTitle() + ";")
+            file.write(str(self.__movies[i].getID()) + ";" + str(self.__movies[i].getYear()) + ";" + self.__movies[i].getTitle() + ";\n")
         file.close()
 
