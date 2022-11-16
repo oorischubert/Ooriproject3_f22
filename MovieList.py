@@ -1,6 +1,10 @@
+#Authors
+#Oori Schubert
+#Wesley Gilpin
+
 from Movie import *
 import random
-import sys
+
 
 class MovieList:
     def __init__(self,database):

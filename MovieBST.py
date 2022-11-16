@@ -1,21 +1,6 @@
-### To complete
-
-#Here the code makes use of the randomized list of ID “Movies.txt” obtained with the previous app and create a Binary Search Tree (BST) (the random list will guarantee that the BST is fairly balanced).
-#What you need to implement in MovieBST.py:
-#1. The class Node (as seen in class) followed by the class MovieBST (in the same file).
-#2. A constructor that reads the file and insert all items in the BST.
-#3. The insert method. Note: the Tree is sorted by ID number. This method should be recursive.
-#4. The getSize method
-#5. The search method that accepts an ID number and return the corresponding movie.
-#This method can be iterative or recursive.
-#6. Requirement: variables such as “the number of items” should be private. Auxiliary methods used in recursion must also be private.
-#create a BST, display “in-order” the list, show the tree structure (90 degree angle) using both ID and index level numbers.
-
-
-#1. The method displayInOrder and its “private” recursive auxiliary routine. All the
-#movies in the BST will be listed when the latter is traversed in order.
-#2. The method show and and its “private” recursive auxiliary routine, that displays the 90 degree shifted tree structure with the ID number and index number in parenthesis. Make sure, you get the same output...
-#Remark: In addition to the traditional references ’left’, ’right’, your Node class should contain an ’index’ attribute that indicates the level-order position of the node in the Tree structure (lecture 18). Rule: The index of root is 0, if a current node has index “index”, the index of its left child is “2*index+1” and right child is “2*index+2”. The index numbers of a given node can easily be set up during insertion
+#Authors
+#Oori Schubert
+#Wesley Gilpin
 
 from Movie import *
 class Node:
