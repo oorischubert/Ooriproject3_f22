@@ -3,6 +3,8 @@
 #Wesley Gilpin
 
 from Movie import *
+from MovieList import *
+
 class Node:
     def __init__(self, movie):
         self.movie = movie
@@ -27,23 +29,12 @@ class MovieBST:
     def getSize(self) -> int:
         return self.__size
     
-    def insert(self, movie):
+    def insert(self, movie) -> None:
         if self.__root is None:
             self.__root = Node(movie)
             self.__size += 1
         else:
             self.__insert(self.__root, movie)
-    
-    # def __einsert(self, node, movie) -> Node:
-    #     if node is None:
-    #         node = Node(movie)
-    #         self.__size += 1
-    #     else:
-    #         if movie.getID() < node.movie.getID():
-    #             node.left = self.__insert(node.left, movie)
-    #         else:
-    #             node.right = self.__insert(node.right, movie)
-    #     return node
 
     def __insert(self, node, movie):
         if movie.getID() < node.movie.getID():
@@ -80,23 +71,38 @@ class MovieBST:
             temp = node.movie
         return temp
 
-    def displayInOrder(self):
+    def displayInOrder(self) -> None:
         print("Display in order %s items by ID"%(self.getSize()))
         self.__displayInOrder(self.__root)
-        print()
     
-    def __displayInOrder(self, node):
+    def __displayInOrder(self, node) -> None:
         if node is not None:
             self.__displayInOrder(node.left)
             print(node)
             self.__displayInOrder(node.right)
     
-    def show(self):
+    def show(self) -> None:
         print("The BSTree looks like: ")
         self.__show(self.__root, 0)
     
-    def __show(self, node, level):
+    def __show(self, node, level) -> None:
         if node != None:
             self.__show(node.right, level + 1)
             print("%s%s(%s)"%("      " * level,node.movie.getID(),node.index))
             self.__show(node.left, level + 1)
+
+    def extractListInOrder(self, keyword):
+        print("Begin sublist extraction for word:%s using in-order traversal"%(keyword))
+        newList = MovieList()
+        self.__extractListInOrder(self.__root, keyword, newList)
+        return newList
+    
+    def __extractListInOrder(self, node, keyword, newList):
+        if node is not None:
+            self.__extractListInOrder(node.right, keyword, newList)
+            splitTitle = node.movie.getTitle().lower().split(" ")
+            for word in splitTitle:
+                if keyword == word:
+                    newList.insert(node.movie)
+                    break
+            self.__extractListInOrder(node.left, keyword, newList)

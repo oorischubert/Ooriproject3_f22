@@ -7,20 +7,24 @@ import random
 
 
 class MovieList:
-    def __init__(self,database):
+    def __init__(self,database=None):
         self.__movies = []
         self.__size = 0
-        file = open(database, "r")
-        for line in file:
-            line = line.strip()
-            line = line.split(";")
-            movie = Movie(int(line[0]), int(line[1]), line[2])
-            self.__movies.append(movie)
-            self.__size += 1
-        file.close()
+        if database is not None:
+            file = open(database, "r")
+            for line in file:
+                line = line.strip()
+                line = line.split(";")
+                movie = Movie(int(line[0]), int(line[1]), line[2])
+                self.insert(movie)
+            file.close()
     
     def getSize(self) -> int:
         return self.__size
+
+    def insert(self, movie) -> None:
+        self.__movies.append(movie)
+        self.__size += 1
     
     def binarySearch(self, movieID):
         low = 0
@@ -36,7 +40,6 @@ class MovieList:
         return False
     
     def shuffle(self) -> None:
-        """Shuffle the list of words"""
         for i in range(self.__size):
             j = random.randint(0,self.__size-1)
             temp = self.__movies[i]
@@ -49,3 +52,6 @@ class MovieList:
             file.write(str(self.__movies[i].getID()) + ";" + str(self.__movies[i].getYear()) + ";" + self.__movies[i].getTitle() + ";\n")
         file.close()
 
+    def display(self) -> None:
+        for i in range(self.__size):
+            print(self.__movies[i])
