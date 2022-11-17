@@ -8,6 +8,7 @@ class Node:
         self.movie = movie
         self.left = None
         self.right = None
+        self.index = 0
     def __str__(self):
         return str(self.movie)
 
@@ -47,13 +48,17 @@ class MovieBST:
     def __insert(self, node, movie):
         if movie.getID() < node.movie.getID():
             if node.left is None:
-                node.left = Node(movie)
+                newNode = Node(movie)
+                newNode.index = 2*node.index + 1
+                node.left = newNode
                 self.__size += 1
             else:
                 self.__insert(node.left, movie)
         elif movie.getID() > node.movie.getID():
             if node.right is None:
-                node.right = Node(movie)
+                newNode = Node(movie)
+                newNode.index = 2*node.index + 2
+                node.right = newNode
                 self.__size += 1
             else:
                 self.__insert(node.right, movie)
@@ -78,11 +83,12 @@ class MovieBST:
     def displayInOrder(self):
         print("Display in order %s items by ID"%(self.getSize()))
         self.__displayInOrder(self.__root)
+        print()
     
     def __displayInOrder(self, node):
-        if node != None:
-            print(node)
+        if node is not None:
             self.__displayInOrder(node.left)
+            print(node)
             self.__displayInOrder(node.right)
     
     def show(self):
@@ -92,5 +98,5 @@ class MovieBST:
     def __show(self, node, level):
         if node != None:
             self.__show(node.right, level + 1)
-            print("   " * level, node)
+            print("%s%s(%s)"%("      " * level,node.movie.getID(),node.index))
             self.__show(node.left, level + 1)
