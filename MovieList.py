@@ -40,11 +40,11 @@ class MovieList:
         return False
     
     def shuffle(self) -> None:
-        for i in range(self.__size):
-            j = random.randint(0,self.__size-1)
-            temp = self.__movies[i]
-            self.__movies[i] = self.__movies[j]
-            self.__movies[j] = temp
+        n = len(self.__movies)
+        for out in range(n-1,0,-1):
+            index = random.randint(0,out)
+            self.__movies[out],self.__movies[index]=self.__movies[index],self.__movies[out]
+
 
     def save(self,database) -> None:
         file = open(database, "w")

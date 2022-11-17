@@ -15,16 +15,17 @@ class Node:
         return str(self.movie)
 
 class MovieBST:
-    def __init__(self,database):
+    def __init__(self,database = None):
         self.__root = None
         self.__size = 0
-        file = open(database, "r")
-        for line in file:
-            line = line.strip()
-            line = line.split(";")
-            movie = Movie(int(line[0]), int(line[1]), line[2])
-            self.insert(movie)
-        file.close()
+        if database is not None:
+            file = open(database, "r")
+            for line in file:
+                line = line.strip()
+                line = line.split(";")
+                movie = Movie(int(line[0]), int(line[1]), line[2])
+                self.insert(movie)
+            file.close()
     
     def getSize(self) -> int:
         return self.__size
@@ -91,18 +92,45 @@ class MovieBST:
             print("%s%s(%s)"%("      " * level,node.movie.getID(),node.index))
             self.__show(node.left, level + 1)
 
-    def extractListInOrder(self, keyword):
+    def extractListInOrder(self, keyword) -> MovieList:
         print("Begin sublist extraction for word:%s using in-order traversal"%(keyword))
         newList = MovieList()
         self.__extractListInOrder(self.__root, keyword, newList)
         return newList
     
-    def __extractListInOrder(self, node, keyword, newList):
+    def __extractListInOrder(self, node, keyword, newList) -> None:
         if node is not None:
+            self.__extractListInOrder(node.left, keyword, newList)
             self.__extractListInOrder(node.right, keyword, newList)
             splitTitle = node.movie.getTitle().lower().split(" ")
             for word in splitTitle:
                 if keyword == word:
                     newList.insert(node.movie)
                     break
-            self.__extractListInOrder(node.left, keyword, newList)
+    
+    def getMaxIndex(self) -> int:
+        index = self.__getMaxIndex(self.__root)
+        return index
+    
+    def __getMaxIndex(self, node, index=0) -> int:
+        if index < node.index:
+            index = node.index
+        if node.right is not None:
+            index = self.__getMaxIndex(node.right, index)
+        if node.left is not None:
+            index = self.__getMaxIndex(node.left, index)
+        return index
+    
+    def getMaxLevel(self) -> int:
+        level = self.__getMaxLevel(self.__root)
+        return level
+    
+    def __getMaxLevel(self, node, level=-1) -> int:
+        if node is not None:
+            level += 1
+            rightLevel = self.__getMaxLevel(node.right, level)
+            leftLevel = self.__getMaxLevel(node.left, level)
+            if rightLevel > leftLevel: level = rightLevel
+            else: level = leftLevel
+        return level
+        
