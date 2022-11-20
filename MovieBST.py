@@ -155,25 +155,13 @@ class MovieBST:
             queue.enqueue(node)
             while not queue.isEmpty():
                 temp = queue.dequeue()
+                print(temp)
                 listdb[temp.index] = temp.movie  # type: ignore
                 if temp.left is not None: # type: ignore
                     queue.enqueue(temp.left) # type: ignore
                 if temp.right is not None: # type: ignore
                     queue.enqueue(temp.right) # type: ignore
-        print()
-        self.show2()
         return listdb
-
-    def show2(self) -> None:
-        """Displays the BSTree"""
-        self.__show2(self.__root, 0)
-    
-    def __show2(self, node, level) -> None:
-        """"Simplified version of __show()"""
-        if node != None:
-            self.__show2(node.right, level + 1)
-            print("%s%s"%("   " * level,node.index))
-            self.__show2(node.left, level + 1)
     
     @staticmethod
     def plotBST(listDB) -> None:
