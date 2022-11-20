@@ -1,6 +1,6 @@
-#Authors
-#Oori Schubert
-#Wesley Gilpin
+#Authors:
+#1: Oori Schubert
+#2: Wesley Gilpin
 
 from Movie import *
 from MovieList import *
